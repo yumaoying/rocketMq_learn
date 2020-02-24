@@ -27,8 +27,7 @@ AB应用不再互相依赖
 
 ### RocketMQ的角色
 
-![img](../img/rocketMq_02_roles.PNG)
-nameServer是用来收集其它角色的信息，
+![img](../img/rocketMq_02_roles.jpg)
 
 #### broker
 - Broker面向producer和consumer接受和发送消息
@@ -43,14 +42,17 @@ nameServer是用来收集其它角色的信息，
 - Master多机负载，可以部署多个broker
   - 每个Broker与nameserver集群中的所有节点建立长连接，定时注册Topic信息到所有nameserver。
 
+
 #### producer
 - 消息的生产者
 - 通过集群中的其中一个节点（随机选择）建立长连接，获得Topic的路由信息，包括Topic下面有哪些Queue，这些Queue分布在哪些Broker上等
 - 接下来向提供Topic服务的Master建立长连接，且定时向Master发送心跳
 
+
 #### consumer
 消息的消费者，通过NameServer集群获得Topic的路由信息，连接到对应的Broker上消费消息。
 注意，由于Master和Slave都可以读取消息，因此Consumer会与Master和Slave都建立连接。
+
 
 #### nameserver
 底层由netty实现，提供了路由管理、服务注册、服务发现的功能，是一个无状态节点
@@ -65,7 +67,8 @@ nameServer是用来收集其它角色的信息，
 
 **为什么不用zookeeper？**：rocketmq希望为了提高性能，CAP定理，客户端负载均衡
 
-### 对比JSM中的Topic和Queue
+
+#### 对比JSM中的Topic和Queue
 - RocketMQ不遵循JSM标准 
   JSM:Java消息服务（Java Message Service，JMS）应用程序接口是一个Java平台中关于面向消息中间件（MOM）的API，用于在两个应用程序之间，或分布式系统中发送消息，进行异步通信。 
   JMS中的P2P和Pub/Sub消息模式：点对点（point to point， queue）与发布订阅（publish/subscribe，topic）最初是由JMS定义的。这两种模式主要区别或解决的问题就是发送到队列的消息能否重复消费(多订阅)。
