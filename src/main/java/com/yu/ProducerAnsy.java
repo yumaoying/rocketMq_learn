@@ -20,6 +20,8 @@ public class ProducerAnsy {
         producer.start();
 
         Message message = new Message("myTopic002", "消息2".getBytes());
+        //设置异步发送失败后的
+        producer.setRetryTimesWhenSendAsyncFailed(0);
         //1.异步可靠消息
         //不会阻塞，等待broker的确定;而是采用事件监听方式接受broker返回的确定
         producer.send(message, new SendCallback() {
@@ -36,11 +38,6 @@ public class ProducerAnsy {
                 System.out.println("发生异常");
             }
         });
-
-        //2.异步单向消息,只发送不保证一定发送成功，失败了消息不会重投，因此有可能会丢失消息
-        producer.sendOneway(message);
-        //关闭
-//        producer.shutdown();
-        System.out.println("已经停机");
+        System.out.println("异步消息发送...");
     }
 }
