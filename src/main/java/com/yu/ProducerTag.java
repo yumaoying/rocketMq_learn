@@ -14,11 +14,13 @@ public class ProducerTag {
         producer.setNamesrvAddr("192.168.117.110:9876");
         //启动生产者
         producer.start();
-        //tag是用来过滤的，用于消息分组
-        //key主要是用来业务处理，找消息，一般用于关联
-        Message message = new Message("myTopic002", "tag-1", "key-1", "消息4".getBytes());
-        //单向消息,只发送不保证一定发送成功，失败了消息不会重投，因此有可能会丢失消息
-        producer.sendOneway(message);
+        for (int i = 0; i < 5; i++) {
+            //tag是用来过滤的，用于消息分组
+            //key主要是用来业务处理，找消息，一般用于关联
+            Message message = new Message("myTopic002", "tag-1", "key-1", ("消息" + i).getBytes());
+            //单向消息,只发送不保证一定发送成功，失败了消息不会重投，因此有可能会丢失消息
+            producer.send(message);
+        }
         System.out.println("发送成功");
         //关闭
         producer.shutdown();

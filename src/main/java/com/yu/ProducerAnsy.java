@@ -20,7 +20,7 @@ public class ProducerAnsy {
         producer.start();
 
         Message message = new Message("myTopic002", "消息2".getBytes());
-        //设置异步发送失败后的
+        //设置异步发送失败后的，重试次数
         producer.setRetryTimesWhenSendAsyncFailed(0);
         //1.异步可靠消息
         //不会阻塞，等待broker的确定;而是采用事件监听方式接受broker返回的确定
