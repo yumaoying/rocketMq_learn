@@ -65,7 +65,7 @@ producer.send(message, new SendCallback() {...});
         return this.defaultMQProducerImpl.send(batch(msgs));
     }
 ```
-如果不确定一次批量发送是否超过大小限制(1MB),那么可以拆分列表，拆表可以参考官网实例![批量发送](http://rocketmq.apache.org/docs/batch-example/)
+如果不确定一次批量发送是否超过大小限制(1MB),那么可以拆分列表，拆表可以参考官网实例http://rocketmq.apache.org/docs/batch-example/
 
 ### 5.消息延迟发送
  RocketMQ使用**messageDelayLevel**可以设置延迟投递
@@ -581,10 +581,7 @@ msg:测试事务消息1
 TransactionSendResultSendResult [sendStatus=SEND_OK, msgId=C0A80164000018B4AAC285E9EB1C0000, offsetMsgId=null, messageQueue=MessageQueue [topic=myTopic002, brokerName=xuexi, queueId=1], queueOffset=0]
 checkLocalTransaction==========
 checkLocalTransaction msg:测试事务消息1
-
 ```
-![img](../img/rocketMq_03_console_trans.png)
-
 ### 7.顺序消费示例
 #### producer
 ````
